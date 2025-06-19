@@ -2,21 +2,19 @@
 
 import { hash } from "bcryptjs"
 import { TSignInSchema, TSignUpSchema } from "@/lib/validation"
-import { signIn } from "@/auth"
+import { signIn, signOut } from "@/auth"
 import { query } from "@/lib/db";
 
-export const loginGithub = async () => await signIn("github",{redirectTo: '/'});
+export const loginGithub = async () => await signIn("github",{redirectTo: '/dashboard'});
+
+export const logout = async () => await signOut({redirectTo: '/'});
 
 export const login = async (params:TSignInSchema) => {
     try {
-        const res = await signIn('credentials',{
+        await signIn('credentials',{
             ...params,
-            redirect: false,
+            redirect: false
         })
-
-        if(res.error){
-            return {success: false,message: res.error}
-        }
         
         return {success: true,message: 'successfully login'}
     } catch (error) {

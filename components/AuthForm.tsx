@@ -46,7 +46,7 @@ function AuthForm<T extends FieldValues>({
     if (response.success && isSignIn) {
       // cek success login
       toast.success(response.message);
-      router.push("/");
+      router.push("/dashboard");
     } else if (response.success && !isSignIn) {
       // cek success register
       toast.success(response.message);
